@@ -1,0 +1,149 @@
+/* Estilos Globais */
+body {
+    font-family: sans-serif;
+    margin: 30px;
+    padding: 50px;
+    background-color: #909ea0; /* Cor de fundo geral */
+    color: #333; /* Cor do texto geral */
+    
+}
+
+/* Cabeçalho */
+header {
+    background-color: hsl(211, 93%, 18%); /* Azul institucional */
+    color: #fff;
+    padding: 20px 10px;
+}
+
+.logo-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.logo {
+    height: 150px; /* Tamanho do logo */
+    width: 150px; /* Garante que a largura seja igual à altura */
+    border-radius: 50%; /* Cria o círculo */
+    overflow: hidden; /* Garante que a imagem não ultrapasse os limites */
+    margin-right: 20px; /* Espaço entre o logo e a navegação */
+}
+
+.logo img {
+    width: 100%; /* Garante que a imagem preencha o círculo */
+    height: auto; /* Mantém a proporção da imagem */
+    display: block; /* Remove espaços extras */
+}
+
+nav ul {
+    list-style: none;
+    display: flex; /* Garante que os itens da lista fiquem em linha */
+}
+
+nav li {
+    margin: 0 15px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Seção Hero (Início) */
+.hero {
+    background-color: #e9ecef; /* Cinza claro */
+    text-align: center;
+    padding: 100px 0;
+}
+
+.hero h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    color: #004085; /* Azul institucional */
+}
+
+.hero p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+.container { /* Crie um contêiner para os elementos */
+    display: flex;
+    justify-content: space-around; /* Distribui o espaço entre os elementos */
+    align-items: center; /* Alinha os elementos verticalmente ao centro */
+}
+
+.btn {
+    background-color: #28a745;
+    color: #fff;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.conteudo {
+    padding: 50px 20px;
+    max-width: 300px;
+    margin: 0; /* Remova a margem automática para evitar conflitos */
+}
+
+.conteudo h2 {
+    margin-bottom: 20px;
+    color: #004085; /* Azul institucional */
+}
+
+.conteudo ul {
+    list-style: disc;
+    margin-left: 20px;
+}
+
+/* Formulário de Contato */
+form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+form input,
+form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form input[type="submit"] {
+    background-color: #28a745; /* Verde institucional */
+    color: #fff;
+    cursor: pointer;
+}
+
+.imagem-movivel {
+    /* Movendo a imagem 30 pixels para baixo e 15 pixels para a direita */
+    margin-top: 30px;
+    margin-left: 0px;
+    
+}
+/* Rodapé */
+footer {
+    background-color: #022346; /* Azul institucional */
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+}
+video {
+    max-width: 150%; /* Garante que o vídeo seja responsivo */
+    height: 500px;
+    display: block; /* Remove espaços extras */
+    margin: 50px auto; /* Adiciona margem e centraliza o vídeo */
+    border-radius: 5px; /* Adiciona bordas arredondadas */
+    box-shadow: 0 4px 8px rgba(12, 116, 151, 0.1); /* Adiciona sombra */
+    width: 800px;
+    line-height: 2px;
+}
+
+video:focus { /* Adiciona estilo quando o vídeo está em foco */
+    outline: none;
+    box-shadow: 0 6px 12px rgba(16, 5, 75, 0.2);
+}
