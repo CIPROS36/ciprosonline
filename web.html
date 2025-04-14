@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaliação e Certificado de Python</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 30px;
+        }
+
+        /* Estilos da Avaliação */
+        #avaliacaoContainer {
+            display: block;
+        }
+
+        #avaliacao {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        .questao {
+            margin-bottom: 25px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .questao p {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .resultado, #mensagemResultado {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .resultado {
+            background-color: #e6f7ff;
+            color: #007bff;
+            border: 1px solid #007bff;
+        }
+
+        #mensagemResultado {
+            display: block;
+            margin-top: 15px;
+        }
+
+        #mensagemResultado.aprovado {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #155724;
+        }
+
+        #mensagemResultado.reprovado {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        #gerarCertificado {
+            color: #007bff;
+            text-decoration: none;
+            display: none;
+            margin-top: 10px;
+            text-align: center;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #gerarCertificado:hover {
+            text-decoration: underline;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input[type="text"], input[type="date"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 1em;
+        }
+
+        /* Estilos do Certificado */
+        #certificadoContainer {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #faf6f6;
+            padding-top: 80px; /* Espaço para a navbar fixa */
+        }
+
+        .certificado {
+            width: 800px;
+            background-color: rgb(8, 20, 116);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 40px;
+            display: flex;
+            flex-direction: row;
+            position: relative;
+        }
+
+        .right-side {
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            background-color: #f9fafb;
+            position: relative;
+            top: 2px;
+        }
+
+        .logo-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .logo {
+            width: 180px;
+            height: 180px;
+            clip-path: circle(50%);
+            top: 5px;
+        }
+
+        .right-side h1 {
+            color: #007bff;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size: 36px;
+            margin-bottom: 10px;
+            justify-items: center;
+        }
+
+        #nomeAluno {
+            color: #8c9b08;
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .right-side h2 {
+            color: #0a0401;
+            margin-bottom: 10px;
+        }
+
+        .right-side p {
+            color: #0c0601;
+            font-size: 18px;
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            margin: 0 20px 10px;
+            padding: 0 35px;
+            text-align: center;
+        }
+
+        .assinatura {
+            margin-top: 10px;
+            text-align: right;
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .assinatura img {
+            width: 220px;
+            margin-top: 100px;
+        }
+
+        .moldura-superior-esquerda {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            width: 877px;
+            height: 730px;
+        }
+
+        #qrcode {
+            width:100px;
+            height: 100px;
+            margin-right: 20px;
+        }
+
+        #baixarCertificado {
+            margin-top: 20px;
+            padding: 12px 24px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            display: block;
+            text-align: center;
+        }
+
+        /* Estilos da Navbar */
+        .navbar {
+            box-shadow: 0 2px 4px rgba(238, 6, 6, 0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .navbar-brand img.logo {
+            height: 50px;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+        }
+
+        /* Estilo para mensagem de carregamento */
+        #loadingMessage {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de navegação -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="imag/LogoCIPROS4.png" alt="Logo CIPROS" class="logo me-2" height="50">
+                CIPROS - Centro Informático Profissional Sejok
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Página Inicial</a></li>
+                    <li class="nav-item"><a class="nav-link" href="python.html">Curso de Python</a></li>
+                    <li class="nav-item"><a class="btn btn-light" href="login.html">Login / Cadastro</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Container da Avaliação -->
+    <div id="avaliacaoContainer">
+        <h1>Avaliação de Python</h1>
+        <form id="avaliacao">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+
+            <label for="data">Data de Avaliação:</label>
+            <input type="date" id="data" name="data" required>
+
+            <div class="questao">
+                <p>1. Qual é o tipo de dado usado para representar números inteiros em Python?</p>
+                <input type="radio" name="q1" value="a"> a) float<br>
+                <input type="radio" name="q1" value="b"> b) int<br>
+                <input type="radio" name="q1" value="c"> c) str<br>
+                <input type="radio" name="q1" value="d"> d) bool<br>
+            </div>
+            <div class="questao">
+                <p>2. Qual é o operador usado para realizar a exponenciação em Python?</p>
+                <input type="radio" name="q2" value="a"> a) ^<br>
+                <input type="radio" name="q2" value="b"> b) **<br>
+                <input type="radio" name="q2" value="c"> c) *<br>
+                <input type="radio" name="q2" value="d"> d) //<br>
+            </div>
+            <div class="questao">
+                <p>3. Qual das seguintes opções não é uma estrutura de dados embutida em Python?</p>
+                <input type="radio" name="q3" value="a"> a) list<br>
+                <input type="radio" name="q3" value="b"> b) tuple<br>
+                <input type="radio" name="q3" value="c"> c) set<br>
+                <input type="radio" name="q3" value="d"> d) array<br>
+            </div>
+            <div class="questao">
+                <p>4. Qual palavra-chave é usada para definir uma função em Python?</p>
+                <input type="radio" name="q4" value="a"> a) function<br>
+                <input type="radio" name="q4" value="b"> b) def<br>
+                <input type="radio" name="q4" value="c"> c) define<br>
+                <input type="radio" name="q4" value="d"> d) func<br>
+            </div>
+            <div class="questao">
+                <p>5. Como você adiciona um elemento ao final de uma lista chamada `minha_lista`?</p>
+                <input type="radio" name="q5" value="a"> a) minha_lista.add(elemento)<br>
+                <input type="radio" name="q5" value="b"> b) minha_lista.append(elemento)<br>
+                <input type="radio" name="q5" value="c"> c) append(minha_lista, elemento)<br>
+                <input type="radio" name="q5" value="d"> d) add_to_list(minha_lista, elemento)<br>
+            </div>
+            <div class="questao">
+                <p>6. Qual é a saída do seguinte código Python: `print(3 == 3.0)`?</p>
+                <input type="radio" name="q6" value="a"> a) True<br>
+                <input type="radio" name="q6" value="b"> b) False<br>
+                <input type="radio" name="q6" value="c"> c) Error<br>
+                <input type="radio" name="q6" value="d"> d) 3<br>
+            </div>
+            <div class="questao">
+                <p>7. Qual método é usado para remover um elemento específico de uma lista, dado o seu valor?</p>
+                <input type="radio" name="q7" value="a"> a) pop()<br>
+                <input type="radio" name="q7" value="b"> b) remove()<br>
+                <input type="radio" name="q7" value="c"> c) delete()<br>
+                <input type="radio" name="q7" value="d"> d) discard()<br>
+            </div>
+            <div class="questao">
+                <p>8. O que o método `len()` faz em Python?</p>
+                <input type="radio" name="q8" value="a"> a) Retorna o maior elemento de uma sequência.<br>
+                <input type="radio" name="q8" value="b"> b) Retorna o número de itens em uma sequência.<br>
+                <input type="radio" name="q8" value="c"> c) Retorna o menor elemento de uma sequência.<br>
+                <input type="radio" name="q8" value="d"> d) Retorna o tipo de dado de uma sequência.<br>
+            </div>
+            <div class="questao">
+                <p>9. Qual é a estrutura de controle usada para executar um bloco de código repetidamente enquanto uma condição é verdadeira?</p>
+                <input type="radio" name="q9" value="a"> a) if<br>
+                <input type="radio" name="q9" value="b"> b) for<br>
+                <input type="radio" name="q9" value="c"> c) while<br>
+                <input type="radio" name="q9" value="d"> d) else<br>
+            </div>
+            <div class="questao">
+                <p>10. Como você itera sobre os elementos de uma lista chamada `nomes`?</p>
+                <input type="radio" name="q10" value="a"> a) for cada nome em nomes:<br>
+                <input type="radio" name="q10" value="b"> b) para nome no nomes:<br>
+                <input type="radio" name="q10" value="c"> c) for nome in nomes:<br>
+                <input type="radio" name="q10" value="d"> d) loop nome em nomes:<br>
+            </div>
+            <div class="questao">
+                <p>11. Qual é o propósito da instrução `try...except` em Python?</p>
+                <input type="radio" name="q11" value="a"> a) Definir uma nova função.<br>
+                <input type="radio" name="q11" value="b"> b) Lidar com exceções (erros) que podem ocorrer no código.<br>
+                <input type="radio" name="q11" value="c"> c) Criar um loop.<br>
+                <input type="radio" name="q11" value="d"> d) Importar um módulo.<br>
+            </div>
+            <div class="questao">
+                <p>12. Qual palavra-chave é usada para sair de um loop imediatamente em Python?</p>
+                <input type="radio" name="q12" value="a"> a) continue<br>
+                <input type="radio" name="q12" value="b"> b) pass<br>
+                <input type="radio" name="q12" value="c"> c) break<br>
+                <input type="radio" name="q12" value="d"> d) exit<br>
+            </div>
+            <div class="questao">
+                <p>13. O que é um módulo em Python?</p>
+                <input type="radio" name="q13" value="a"> a) Uma variável global.<br>
+                <input type="radio" name="q13" value="b"> b) Um arquivo contendo definições e instruções Python.<br>
+                <input type="radio" name="q13" value="c"> c) Uma função embutida.<br>
+                <input type="radio" name="q13" value="d"> d) Um tipo de dado.<br>
+            </div>
+            <div class="questao">
+                <p>14. Como você importa um módulo chamado `math` em Python?</p>
+                <input type="radio" name="q14" value="a"> a) include math<br>
+                <input type="radio" name="q14" value="b"> b) import math<br>
+                <input type="radio" name="q14" value="c"> c) using math<br>
+                <input type="radio" name="q14" value="d"> d) from math import *<br>
+            </div>
+            <div class="questao">
+                <p>15. Qual função é usada para ler a entrada do usuário a partir do console em Python?</p>
+                <input type="radio" name="q15" value="a"> a) print()<br>
+                <input type="radio" name="q15" value="b"> b) input()<br>
+                <input type="radio" name="q15" value="c"> c) read()<br>
+                <input type="radio" name="q15" value="d"> d) get_input()<br>
+            </div>
+            <div class="questao">
+                <p>16. Qual método de string retorna uma nova string onde todas as ocorrências de um caractere são substituídas por outro?</p>
+                <input type="radio" name="q16" value="a"> a) change()<br>
+                <input type="radio" name="q16" value="b"> b) replace()<br>
+                <input type="radio" name="q16" value="c"> c) substitute()<br>
+                <input type="radio" name="q16" value="d"> d) alter()<br>
+            </div>
+            <div class="questao">
+                <p>17. Qual é a saída do seguinte código Python: `print("Olá, Mundo!"[5:10])`?</p>
+                <input type="radio" name="q17" value="a"> a) Olá,<br>
+                <input type="radio" name="q17" value="b"> b) Mundo<br>
+                <input type="radio" name="q17" value="c"> c) , Mun<br>
+                <input type="radio" name="q17" value="d"> d) Mundo!<br>
+            </div>
+            <div class="questao">
+                <p>18. Qual método de string converte todos os caracteres para minúsculo?</p>
+                <input type="radio" name="q18" value="a"> a) lower()<br>
+                <input type="radio" name="q18" value="b"> b) to_lower()<br>
+                <input type="radio" name="q18" value="c"> c) lowercase()<br>
+                <input type="radio" name="q18" value="d"> d) minúsculo()<br>
+            </div>
+            <div class="questao">
+                <p>19. Qual das seguintes opções é um exemplo de um operador lógico em Python?</p>
+                <input type="radio" name="q19" value="a"> a) +<br>
+                <input type="radio" name="q19" value="b"> b) ==<br>
+                <input type="radio" name="q19" value="c"> c) and<br>
+                <input type="radio" name="q19" value="d"> d) *<br>
+            </div>
+            <div class="questao">
+                <p>20. O que o método `split()` faz com uma string em Python?</p>
+                <input type="radio" name="q20" value="a"> a) Remove espaços em branco do início e do final da string.<br>
+                <input type="radio" name="q20" value="b"> b) Divide a string em uma lista de substrings.<br>
+                <input type="radio" name="q20" value="c"> c) Converte a string para minúsculo.<br>
+                <input type="radio" name="q20" value="d"> d) Substitui uma substring por outra.<br>
+            </div>
+
+            <button type="button" onclick="calcularResultado()">Enviar Respostas</button>
+        </form>
+        <div class="resultado" id="resultado"></div>
+        <div id="mensagemResultado"></div>
+        <a id="gerarCertificado" onclick="mostrarCertificado(event)">Gerar Certificado</a>
+    </div>
+
+    <!-- Container do Certificado -->
+    <div id="certificadoContainer">
+        <div id="loadingMessage">Gerando seu certificado, por favor aguarde...</div>
+        <div class="certificado">
+            <img src="Imag/Mordula_8-removebg-preview.png" alt="Moldura" class="moldura-superior-esquerda">
+            <div class="right-side">
+                <div class="logo-container">
+                    <img src="Imag/CIPROS_LOGOTIPO.png-removebg-preview.png" alt="Logotipo CIPROS" class="logo">
+                </div>
+                <h1>Certificado de Conclusão</h1>
+                <h2>Certificamos que</h2>
+                <h2 id="nomeAluno"></h2>
+                <p>Concluiu com êxito o Curso Intensivo de</p>
+                <h2>Python</h2>
+                <p>Oferecido na Modalidade Online pelo CIPROS - Centro Informático Profissional Sejok, com carga horária de 38 horas de aprendizado.</p>
+                <p>Data de Emissão: <span id="dataEmissao"></span></p>
+                <div class="assinatura">
+                    <div id="qrcode"></div>
+                    <img src="Imag/Assinatura7.png" alt="Assinatura Sergio Cunguara">
+                </div>
+            </div>
+        </div>
+        <button id="baixarCertificado">Baixar Certificado</button>
+    </div>
+
+    <script>
+        // Função para formatar a data de YYYY-MM-DD para DD/MM/YYYY
+        function formatarData(data) {
+            if (!data) return '';
+            const [ano, mes, dia] = data.split('-');
+            return `${dia}/${mes}/${ano}`;
+        }
+
+        // Função para pré-carregar imagens
+        function preloadImages(imageUrls, callback) {
+            let loadedCount = 0;
+            const totalImages = imageUrls.length;
+
+            imageUrls.forEach(url => {
+                const img = new Image();
+                img.src = url;
+                img.onload = () => {
+                    loadedCount++;
+                    console.log(`Imagem carregada: ${url}`);
+                    if (loadedCount === totalImages) {
+                        console.log('Todas as imagens foram carregadas');
+                        callback();
+                    }
+                };
+                img.onerror = () => {
+                    console.error(`Erro ao carregar imagem: ${url}`);
+                    loadedCount++;
+                    if (loadedCount === totalImages) {
+                        callback();
+                    }
+                };
+            });
+        }
+
+        // Função para gerar e baixar o PDF
+        function gerarPDF(nomeAluno) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({ orientation: 'portrait' });
+            const elementHTML = document.querySelector('.certificado');
+
+            console.log('Iniciando captura do certificado com html2canvas');
+            html2canvas(elementHTML, { 
+                scale: 2, 
+                useCORS: true,
+                logging: true 
+            }).then(canvas => {
+                console.log('Canvas capturado com sucesso');
+                const imgData = canvas.toDataURL('image/png');
+                const imgProps = doc.getImageProperties(imgData);
+                const pdfWidth = doc.internal.pageSize.getWidth();
+                const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+                doc.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                console.log('Imagem adicionada ao PDF, iniciando download');
+                doc.save(`Certificado_Python_${nomeAluno.replace(/\s+/g, '_')}.pdf`);
+                document.getElementById('loadingMessage').textContent = 'Certificado baixado com sucesso!';
+            }).catch(error => {
+                console.error('Erro ao gerar PDF:', error);
+                document.getElementById('loadingMessage').textContent = 'Erro ao gerar o certificado. Use o botão "Baixar Certificado".';
+                alert('Erro ao gerar o certificado automaticamente. Tente usar o botão "Baixar Certificado".');
+            });
+        }
+
+        // Função para calcular o resultado da avaliação
+        function calcularResultado() {
+            const respostasCorretas = {
+                q1: 'b', q2: 'b', q3: 'd', q4: 'b', q5: 'b',
+                q6: 'a', q7: 'b', q8: 'b', q9: 'c', q10: 'c',
+                q11: 'b', q12: 'c', q13: 'b', q14: 'b', q15: 'b',
+                q16: 'b', q17: 'c', q18: 'a', q19: 'c', q20: 'b'
+            };
+
+            // Validação de campos obrigatórios
+            const nome = document.getElementById('nome').value.trim();
+            const data = document.getElementById('data').value;
+            if (!nome || !data) {
+                alert('Por favor, preencha o nome e a data de avaliação.');
+                return;
+            }
+
+            // Calcula a pontuação
+            let pontuacao = 0;
+            for (let i = 1; i <= 20; i++) {
+                const resposta = document.querySelector(`input[name="q${i}"]:checked`);
+                if (resposta && resposta.value === respostasCorretas[`q${i}`]) {
+                    pontuacao++;
+                }
+            }
+
+            // Calcula o percentual
+            const percentual = (pontuacao / 20) * 100;
+            const resultado = document.getElementById('resultado');
+            const mensagemResultado = document.getElementById('mensagemResultado');
+            const gerarCertificado = document.getElementById('gerarCertificado');
+
+            // Exibe o resultado
+            resultado.textContent = `Você acertou ${pontuacao} de 20 questões (${percentual.toFixed(2)}%).`;
+
+            // Verifica aprovação (80% ou mais)
+            if (percentual >= 80) {
+                mensagemResultado.textContent = 'Parabéns! Você foi aprovado!';
+                mensagemResultado.className = 'aprovado';
+                // Salva os dados no localStorage
+                localStorage.setItem('nomeAluno', nome);
+                localStorage.setItem('dataAvaliacao', data);
+                gerarCertificado.style.display = 'block';
+            } else {
+                mensagemResultado.textContent = 'Infelizmente, você não atingiu a pontuação mínima para aprovação (80%). Tente novamente!';
+                mensagemResultado.className = 'reprovado';
+                gerarCertificado.style.display = 'none';
+            }
+        }
+
+        // Função para mostrar o certificado
+        function mostrarCertificado(event) {
+            event.preventDefault();
+            console.log('Clicou em Gerar Certificado');
+
+            const nomeAluno = localStorage.getItem('nomeAluno') || 'Nome do Aluno';
+            const dataEmissao = localStorage.getItem('dataAvaliacao') || new Date().toISOString().split('T')[0];
+
+            // Preenche o certificado
+            document.getElementById('nomeAluno').textContent = nomeAluno;
+            document.getElementById('dataEmissao').textContent = formatarData(dataEmissao);
+
+            // Gera o QR code
+            const qrText = `Certificado de Conclusão para ${nomeAluno}, Data: ${formatarData(dataEmissao)}`;
+            QRCode.toCanvas(document.getElementById('qrcode'), qrText, { width: 100 }, function (error) {
+                if (error) {
+                    console.error('Erro ao gerar QR code:', error);
+                } else {
+                    console.log('QR code gerado com sucesso');
+                }
+            });
+
+            // Mostra o certificado e esconde a avaliação
+            document.getElementById('avaliacaoContainer').style.display = 'none';
+            document.getElementById('certificadoContainer').style.display = 'flex';
+            document.getElementById('loadingMessage').style.display = 'block';
+            console.log('Certificado exibido, iniciando pré-carregamento');
+
+            // Lista de imagens a serem pré-carregadas
+            const imageUrls = [
+                'Imag/Mordula_8-removebg-preview.png',
+                'Imag/CIPROS_LOGOTIPO.png-removebg-preview.png',
+                'Imag/Assinatura7.png'
+            ];
+
+            // Pré-carrega imagens e tenta gerar o PDF automaticamente
+            preloadImages(imageUrls, () => {
+                console.log('Pré-carregamento concluído, gerando PDF');
+                setTimeout(() => {
+                    gerarPDF(nomeAluno);
+                    // Limpa o localStorage após tentativa de download
+                    localStorage.removeItem('nomeAluno');
+                    localStorage.removeItem('dataAvaliacao');
+                    console.log('Tentativa de download automático concluída e localStorage limpo');
+                }, 1000); // 1000ms após pré-carregamento
+            });
+        }
+
+        // Adiciona evento ao botão manual
+        document.getElementById('baixarCertificado').addEventListener('click', () => {
+            const nomeAluno = document.getElementById('nomeAluno').textContent;
+            document.getElementById('loadingMessage').style.display = 'block';
+            document.getElementById('loadingMessage').textContent = 'Gerando seu certificado, por favor aguarde...';
+            gerarPDF(nomeAluno);
+        });
+    </script>
+</body>
+</html>

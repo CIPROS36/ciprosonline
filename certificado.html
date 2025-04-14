@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificado de Conclusão - SPSS</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #faf6f6;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+        .certificado {
+            width: 800px;
+            background-color: rgb(8, 20, 116);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 40px;
+            display: flex;
+            flex-direction: row;
+            position: relative;
+        }
+        .left-side {
+            display: none;
+        }
+        .right-side {
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            background-color: #f9fafb;
+            position: relative;
+            top: 2px;
+        }
+        .logo-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .logo {
+            width: 180px;
+            height: 180px;
+            clip-path: circle(50%);
+            top: 5px;
+        }
+        .right-side h1 {
+            color: #007bff;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size: 36px;
+            margin-bottom: 10px;
+            justify-items: center;
+        }
+        #nomeAluno {
+            color: #8c9b08;
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+        .right-side h2 {
+            color: #0a0401;
+            margin-bottom: 10px;
+        }
+        .right-side p {
+            color: #0c0601;
+            font-size: 18px;
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            margin: 0 20px 10px;
+            padding: 0 35px;
+            text-align: center;
+        }
+        .assinatura {
+            margin-top: 10px;
+            text-align: right;
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .assinatura img {
+            width: 220px;
+            margin-top: 100px;
+        }
+        #baixarCertificado {
+            margin-top: 40px;
+            padding: 12px 24px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            align-self: center;
+        }
+        #formCertificado {
+            background-color: rgb(93, 91, 90);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            width: 400px;
+        }
+        #formCertificado input, #formCertificado button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #formCertificado button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .moldura-superior-esquerda {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            width: 877px;
+            height: 730px;
+        }
+        #qrcode {
+            width: 100px;
+            height: 100px;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <form id="formCertificado">
+        <input type="text" id="inputNomeAluno" placeholder="Nome do Aluno">
+        <input type="date" id="inputDataEmissao">
+        <button type="button" id="btnGerarCertificado">Gerar Certificado</button>
+    </form>
+    <div class="certificado" style="display: none;">
+        <img src="Imag/Mordula_8-removebg-preview.png" alt="" class="moldura-superior-esquerda">
+        <div class="right-side">
+            <div class="logo-container">
+                <img src="Imag/CIPROS_LOGOTIPO.png-removebg-preview.png" alt="Logotipo CIPROS" class="logo">
+            </div>
+            <h1>Certificado de Conclusão</h1>
+            <h2>Certificamos que</h2>
+            <h2 id="nomeAluno"></h2>
+            <p>Concluiu com êxito o Curso Intensivo de</p>
+            <h2>SPSS</h2>
+            <p>Oferecido na Modalidade Online pelo CIPROS - Centro Informático Profissional Sejok, com carga horaria de 38 horas de aprendizado.</p>
+            <p>Data de Emissão: <span id="dataEmissao"></span></p>
+            <div class="assinatura">
+                <div id="qrcode"></div>
+                <img src="Imag/Assinatura7.png" alt="Assinatura Sergio Cunguara">
+            </div>
+        </div>
+    </div>
+    <button id="baixarCertificado" style="display: none;">Baixar Certificado</button>
+    <script>
+        document.getElementById('btnGerarCertificado').addEventListener('click', function() {
+            const nomeAluno = document.getElementById('inputNomeAluno').value;
+            const dataEmissao = document.getElementById('inputDataEmissao').value;
+
+            localStorage.setItem('nomeAluno', nomeAluno);
+            localStorage.setItem('dataAvaliacao', dataEmissao);
+
+            document.getElementById('nomeAluno').textContent = nomeAluno;
+            document.getElementById('dataEmissao').textContent = dataEmissao;
+
+            document.querySelector('.certificado').style.display = 'flex';
+            document.getElementById('baixarCertificado').style.display = 'block';
+            document.getElementById('formCertificado').style.display = 'none';
+
+            const qrText = `Certificado de Conclusão para ${nomeAluno}, Data: ${dataEmissao}`;
+            QRCode.toCanvas(document.getElementById('qrcode'), qrText, { width: 100 }, function (error) {
+                if (error) console.error(error);
+            });
+        });
+
+        document.getElementById('baixarCertificado').addEventListener('click', function() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({ orientation: 'portrait' });
+            const elementHTML = document.querySelector('.certificado');
+
+            // Renderizar o HTML antes de converter para PDF
+            html2canvas(elementHTML).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+                const imgProps = doc.getImageProperties(imgData);
+                const pdfWidth = doc.internal.pageSize.getWidth();
+                const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+                doc.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                doc.save('certificado.pdf');
+            });
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificado de Conclusão - Monitoria e Avaliação de Projetos</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .certificado {
+            width: 800px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 40px;
+            display: flex;
+            flex-direction: row;
+        }
+        .left-side {
+            width: 30%;
+            background-color: #0cacec;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .right-side {
+            width: 70%;
+            padding: 20px;
+            text-align: center;
+        }
+        .logo {
+            width: 190px;
+            height: 190px;
+            margin-bottom: 20px;
+            clip-path: circle(50%);
+            margin-top: auto;
+        }
+        .right-side h1 {
+            color: #007bff;
+            font-family: 'Arial Black', sans-serif;
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+        #nomeAluno {
+            color: #333;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .right-side h2 {
+            color: #0c0548;
+            margin-bottom: 10px;
+        }
+        .right-side p {
+            color: #02010f;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .assinatura {
+            margin-top: 10px;
+            text-align: right;
+            width: 100%;
+        }
+        .assinatura img {
+            width: 220px;
+            margin-top: 100px;
+        }
+        #baixarCertificado {
+            margin-top: 40px;
+            padding: 12px 24px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            align-self: center;
+        }
+        #formCertificado {
+            background-color: rgb(100, 104, 104);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            width: 400px;
+        }
+        #formCertificado input, #formCertificado button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #formCertificado button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <form id="formCertificado">
+        <input type="text" id="inputNomeAluno" placeholder="Nome do Aluno">
+        <input type="date" id="inputDataEmissao">
+        <button type="button" id="btnGerarCertificado">Gerar Certificado</button>
+    </form>
+    <div class="certificado" style="display: none;">
+        <div class="left-side">
+            <img src="Imag/LogoCIPROS4.png" alt="Logotipo CIPROS" class="logo">
+        </div>
+        <div class="right-side">
+            <h1>Certificado de Conclusão</h1>
+            <h2>Certificamos que</h2>
+            <h2 id="nomeAluno"></h2>
+            <p>Concluiu com êxito o Curso Intensivo de</p>
+            <h2>Monitoria e Avaliação de Projetos</h2>
+            <p>Oferecido na Modalidade Online pelo CIPROS - Centro Informático Profissional Sejok, totalizando 38 horas de aprendizado.</p>
+            <p>Data de Emissão: <span id="dataEmissao"></span></p>
+            <div class="assinatura">
+               
+                <img src="Imag/Assinatura7.png" alt="Assinatura Sergio Cunguara">
+                
+            </div>
+        </div>
+    </div>
+    <button id="baixarCertificado" style="display: none;">Baixar Certificado</button>
+    <script>
+        document.getElementById('btnGerarCertificado').addEventListener('click', function() {
+            const nomeAluno = document.getElementById('inputNomeAluno').value;
+            const dataEmissao = document.getElementById('inputDataEmissao').value;
+
+            localStorage.setItem('nomeAluno', nomeAluno);
+            localStorage.setItem('dataAvaliacao', dataEmissao);
+
+            document.getElementById('nomeAluno').textContent = nomeAluno;
+            document.getElementById('dataEmissao').textContent = dataEmissao;
+
+            document.querySelector('.certificado').style.display = 'flex';
+            document.getElementById('baixarCertificado').style.display = 'block';
+            document.getElementById('formCertificado').style.display = 'none';
+        });
+
+        document.getElementById('baixarCertificado').addEventListener('click', function() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({ orientation: 'portrait' });
+            doc.html(document.querySelector('.certificado'), {
+                callback: function (doc) {
+                    doc.save('certificado.pdf');
+                },
+                margin: [10, 10, 10, 10],
+                autoPaging: 'text',
+                x: 0,
+                y: 0,
+                width: 600,
+                windowWidth: 600
+            });
+        });
+    </script>
+</body>
+</html>

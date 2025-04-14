@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma de Cursos Online</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            padding: 0px;
+            background-color: #606468;
+            color: #eee9e9;
+        }
+
+        .navbar {
+            box-shadow: 0 2px 4px rgba(238, 6, 6, 0.1);
+        }
+
+        .navbar-brand img.logo {
+            height: 50px;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+        }
+
+        header.bg-light {
+            background-color: #e96c0d;
+            padding: 100px 0;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            color: #343a40;
+            margin-bottom: 20px;
+        }
+
+        header h2.lead {
+            font-size: 1.5rem;
+            color: #6c757d;
+        }
+
+        section.container {
+            padding: 80px 0;
+        }
+
+        .card {
+            border: none;
+            box-shadow: 0 4px 8px rgba(60, 20, 204, 0.882);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-img-top {
+            height: 170px;
+            object-fit: cover;
+        }
+
+        .card-title {
+            color: #007bff;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .card-text {
+            color: #495057;
+            margin-bottom: 20px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #08f524;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        footer {
+            background-color: #052d57;
+            color: rgb(11, 4, 82);
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .carousel-item img {
+            height: 650px;
+            object-fit: cover;
+        }
+
+        #missao-visao-valores {
+            display: none;
+        }
+
+        #cursos {
+            display: none;
+        }
+
+        .social-links {
+            margin-top: 10px;
+        }
+
+        .social-links a {
+            color: white;
+            margin: 0 10px;
+            font-size: 24px;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            color: #ddd;
+        }
+
+        .area-cursos {
+            margin-bottom: 40px;
+        }
+
+        .area-cursos h3 {
+            color: #007bff;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="imag/LogoCIPROS4.png" alt="Logo" class="logo me-2" height="50">
+                CIPROS - Centro Informático Profissional Sejok
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="mostrarCursos()">Cursos</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Mais
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#" onclick="mostrarMissaoVisao()">Missão & Visão</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="btn btn-light" href="login.html">Login / Cadastro</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bg-light text-center py-5">
+        <div class="container">
+            <h1>Aprenda novas habilidades com a CIPROS!</h1>
+            <h2 class="lead">Cursos 100% Online para impulsionar sua carreira.</h2>
+        </div>
+    </header>
+
+    <section id="missao-visao-valores" class="container py-5">
+        <h2 class="text-center mb-4">Missão, Visão e Valores</h2>
+        <div id="carouselMissaoVisaoValores" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="imag/CIPROS1.jpg" class="d-block w-100 carousel-image" alt="Missão 1">
+                </div>
+                <div class="carousel-item">
+                    <img src="imag/CIPROS2.jpg" class="d-block w-100 carousel-image" alt="Missão 2">
+                </div>
+                <div class="carousel-item">
+                    <img src="imag/CIPROS3.jpg" class="d-block w-100 carousel-image" alt="Missão 3">
+                </div>
+                <div class="carousel-item">
+                    <img src="imag/CIPROS4.jpg" class="d-block w-100 carousel-image" alt="Missão 4">
+                </div>
+                <div class="carousel-item">
+                    <img src="imag/CIPROS5.jpg" class="d-block w-100 carousel-image" alt="Missão 5">
+                </div>
+                <div class="carousel-item">
+                    <img src="imag/CIPROS6.jpg" class="d-block w-100 carousel-image" alt="Missão 6">
+                </div>
+                <div class="carousel-item">
+                    <img src="imag/CIPROS7.jpg" class="d-block w-100 carousel-image" alt="Missão 7">
+                </div>
+                <div class="carousel-item">
+                    <img src="imag/CIPROS8.jpg" class="d-block w-100 carousel-image" alt="Missão 8">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselMissaoVisaoValores"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselMissaoVisaoValores"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Próximo</span>
+            </button>
+        </div>
+    </section>
+
+    <section id="cursos" class="container py-5">
+        <h2 class="text-center mb-4">Nossos Cursos</h2>
+
+        <div class="area-cursos">
+            <h3>Tecnologia e Comunicação</h3>
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="imag/informat11.png" class="card-img-top" alt="Curso Informática">
+                        <div class="card-body">
+                            <h5 class="card-title">Curso de Informática</h5>
+                            <p class="card-text">Programação para iniciantes.</p>
+                            <a href="informatica.html" class="btn btn-primary">Acessar Curso</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="imag/curso-de-python.jpg" class="card-img-top" alt="Curso Python">
+                        <div class="card-body">
+                            <h5 class="card-title">Curso de Python</h5>
+                            <p class="card-text">Programação para iniciantes.</p>
+                            <a href="python.html" class="btn btn-primary">Acessar Curso</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="imag/Programacao Mobile.webp" class="card-img-top" alt="Curso Programação Mobile">
+                        <div class="card-body">
+                            <h5 class="card-title">Curso de Programação Mobile</h5>
+                            <p class="card-text">Desenvolvimento de aplicativos móveis.</p>
+                            <a href="programacao_mobile.html" class="btn btn-primary">Acessar Curso</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="imag/InteligenciaArtificial.jpeg" class="card-img-top" alt="Curso Inteligência Artificial">
+                        <div class="card-body">
+                            <h5 class="card-title">Curso de Inteligência Artificial</h5>
+                            <p class="card-text">Apresentar os conceitos básicos da Inteligência Artificial (IA), suas aplicações práticas e ferramentas acessíveis.</p>
+                            <a href="inteligencia_artificial.html" class="btn btn-primary">Acessar Curso</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="imag/Ciencia da Computacao.jpg" class="card-img-top" alt="Curso Ciência da Computação">
+                        <div class="card-body">
+                            <h5 class="card-title">Curso de Ciência da Computação</h5>
+                            <p class="card-text">Desenvolvimento de softwares e sistemas com ênfase em programação e comunicação digital.</p>
+                            <a href="ciencia_computacao.html" class="btn btn-primary">Acessar Curso</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="imag/Redes de Computadores.jpg" class="card-img-top" alt="Curso Redes de Computadores">
+                        <div class="card-body">
+                            <h5 class="card-title">Curso de Redes de Computadores</h5>
+                            <p class="card-text">Configuração e gerenciamento de redes para comunicação eficiente e segura.</p>
+                            <a href="redes_computadores.html" class="btn btn-primary">Acessar Curso</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="imag/Comunicacao Digital.jpg" class="card-img-top" alt="Curso Comunicação Online">
+                        <div class="card-body">
+                            <h5 class="card-title">Curso de Comunicação Digital</h5>
+                            <p class="card-text">Técnicas de comunicação digital para plataformas online e redes sociais.</p>
+                            <a href="comunicacao_online.html" class="btn btn-primary">Acessar Curso</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="area-cursos">
+            <h3>Análise de Dados</h3>
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="imag/power bi2.png" class="card-img-top" alt="Curso Power BI">
+                        <div class="card-body">
+                            <h5 class="card-title">Curso de Power BI</h5>
+                            <p class="card-text">Criação de relatórios interativos.</p>
+                            <a href="powerbi.html" class="btn btn-primary">Acessar Curso</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="imag/SPSS2.webp" class="card-img-top" alt="Curso SPSS">
+                        <div class="card-body">
+                            <h5 class="card-title">Curso de SPSS</h5>
+                            <p class="card-text">Análise de dados estatísticos.</p>
+                            <a href="spss.html" class="btn btn-primary">Acessar Curso</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="imag/Excel55.png" class="card-img-top" alt="Curso Excel">
+ spawned a new thread                        <div class="card-body">
+                            <h5 class="card-title">Curso de Excel Intermediário</h5>
+                            <p class="card-text">Domine planilhas e análises.</p>
+                            <a href="excel.html" class="btn btn-primary">Acessar Curso</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="imag/Estatistica.jpg" class="card-img-top" alt="Curso Estatística Aplicada">
+                        <div class="card-body">
+                            <h5 class="card-title">Curso de Estatística Aplicada</h5>
+                            <p class="card-text">Ensinar os principais cálculos estatísticos com uso prático do Microsoft Excel.</p>
+                            <a href="estatistica_aplicada.html" class="btn btn-primary">Acessar Curso</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="imag/Stata.webp" class="card-img-top" alt="Curso Análise de Dados com STATA">
+                        <div class="card-body">
+                            <h5 class="card-title">Curso de Análise de Dados com STATA</h5>
+                            <p class="card-text">Interpretação e visualização de dados.</p>
+                            <a href="analise_dados_stata.html" class="btn btn-primary">Acessar Curso</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="imag/ciencia de dados.jpg" class="card-img-top" alt="Curso Ciência de Dados">
+                        <div class="card-body">
+                            <h5 class="card-title">Curso de Ciência de Dados</h5>
+                            <p class="card-text">Análise de grandes volumes de dados com Python, R e machine learning.</p>
+                            <a href="ciencia_dados.html" class="btn btn-primary">Acessar Curso</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="imag/BI.jpg" class="card-img-top" alt="Curso Business Intelligence">
+                        <div class="card-body">
+                            <h5 class="card-title">Curso de Business Intelligence (BI)</h5>
+                            <p class="card-text">Criação de dashboards e relatórios com Power BI e Tableau.</p>
+                            <a href="business_intelligence.html" class="btn btn-primary">Acessar Curso</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="area-cursos">
+            <h3>Gestão e Negócios</h3>
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="imag/Gestao-de-Projetos-MiniBanner-min.jpg.webp" class="card-img-top"
+                            alt="Curso Gestão de Projetos">
+                        <div class="card-body">
+                            <h5 class="card-title">Curso de Gestão de Projetos</h5>
+                            <p class="card-text">Desenvolvimento web dinâmico.</p>
+                            <a href="gestao_projetos.html" class="btn btn-primary">Acessar Curso</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="imag/Marketingdigital.jpg" class="card-img-top" alt="Curso Marketing Digital">
+                        <div class="card-body">
+                            <h5 class="card-title">Curso de Marketing Digital</h5>
+                            <p class="card-text">Estratégias de marketing online.</p>
+                            <a href="marketing_digital.html" class="btn btn-primary">Acessar Curso</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="imag/curso-gratis-de-gestao-de-pessoas.webp" class="card-img-top"
+                            alt="Curso Gestão de Pessoas">
+                        <div class="card-body">
+                            <h5 class="card-title">Curso de Liderança e Gestão de Pessoal (GRH)</h5>
+                            <p class="card-text">Liderança e RH.</p>
+                            <a href="gestao_pessoas.html" class="btn btn-primary">Acessar Curso</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="imag/gestaofinanceira.png" class="card-img-top" alt="Curso Gestão Financeira">
+                        <div class="card-body">
+                            <h5 class="card-title">Curso de Gestão Financeira</h5>
+                            <p class="card-text">Planejamento financeiro.</p>
+                            <a href="gestao_financeira.html" class="btn btn-primary">Acessar Curso</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="imag/Contabilidade.jpg" class="card-img-top" alt="Curso Contabilidade Geral">
+                        <div class="card-body">
+                            <h5 class="card-title">Curso de Contabilidade Geral</h5>
+                            <p class="card-text">Fornecer conhecimentos teóricos e práticos sobre os fundamentos da contabilidade.</p>
+                            <a href="contabilidade_geral.html" class="btn btn-primary">Acessar Curso</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="imag/ElaboracaodeProjecto.webp" class="card-img-top" alt="Curso Elaboração de Projetos">
+                        <div class="card-body">
+                            <h5 class="card-title">Curso de Elaboração de Projetos para Captação de Financiamentos</h5>
+                            <p class="card-text">Capacitar para escrever propostas de projetos sociais e económicos para captação de fundos.</p>
+                            <a href="elaboracao_projetos.html" class="btn btn-primary">Acessar Curso</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="imag/Admn Empresarial.jpg" class="card-img-top" alt="Curso Administração de Empresas">
+                        <div class="card-body">
+                            <h5 class="card-title">Curso de Administração de Empresas</h5>
+                            <p class="card-text">Gestão estratégica em finanças, marketing e recursos humanos.</p>
+                            <a href="administracao_empresas.html" class="btn btn-primary">Acessar Curso</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="imag/Gestao de Negocios.jpg" class="card-img-top" alt="Curso Gestão de Negócios Avançada">
+                        <div class="card-body">
+                            <h5 class="card-title">Curso de Gestão de Negócios Avançada</h5>
+                            <p class="card-text">Estratégias avançadas para liderança e inovação em negócios.</p>
+                            <a href="gestao_negocios_avancada.html" class="btn btn-primary">Acessar Curso</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="area-cursos">
+            <h3>Design e Multimídia</h3>
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="imag/Design-Grafico-O-Que-Faz-1-570x350.jpg" class="card-img-top" alt="Curso Design Gráfico">
+                        <div class="card-body">
+                            <h5 class="card-title">Curso de Design Gráfico</h5>
+                            <p class="card-text">Criação de peças visuais.</p>
+                            <a href="design_grafico.html" class="btn btn-primary">Acessar Curso</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="imag/curso_de_edicao_de_videos_7.jpeg" class="card-img-top" alt="Curso Edição de Vídeo">
+                        <div class="card-body">
+                            <h5 class="card-title">Curso de Edição de Vídeo</h5>
+                            <p class="card-text">Fundamentos da edição de vídeo, desde cortes simples até a criação de vídeos para redes sociais.</p>
+                            <a href="edicao_video.html" class="btn btn-primary">Acessar Curso</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="imag/Producao Multi.jpg" class="card-img-top" alt="Curso Produção Multimídia">
+                        <div class="card-body">
+                            <h5 class="card-title">Curso de Produção Multimídia</h5>
+                            <p class="card-text">Produção de vídeos, animações e conteúdos interativos para web e redes sociais.</p>
+                            <a href="producao_multimidia.html" class="btn btn-primary">Acessar Curso</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="imag/Motion Design.jpg" class="card-img-top" alt="Curso Motion Design">
+                        <div class="card-body">
+                            <h5 class="card-title">Curso de Motion Design</h5>
+                            <p class="card-text">Criação de animações dinâmicas para publicidade e conteúdos digitais.</p>
+                            <a href="motion_design.html" class="btn btn-primary">Acessar Curso</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="area-cursos">
+            <h3>Desenvolvimento Social e Comunitário</h3>
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="imag/Cartaz Horizontal de Loja Orgânica Verde.png" class="card-img-top"
+                            alt="Curso Monitoria e Avaliação">
+                        <div class="card-body">
+                            <h5 class="card-title">Curso de Monitoria e Avaliação</h5>
+                            <p class="card-text">Ferramentas para gestão de projetos.</p>
+                            <a href="monitoria_avaliacao.html" class="btn btn-primary">Acessar Curso</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="imag/HST.webp" class="card-img-top" alt="Curso Higiene, Saúde e Segurança">
+                        <div class="card-body">
+                            <h5 class="card-title">Curso de Higiene, Saúde e Segurança no Trabalho (HST)</h5>
+                            <p class="card-text">Fornecer conhecimentos essenciais sobre prevenção de acidentes, promoção da saúde e segurança no ambiente de trabalho.</p>
+                            <a href="higiene_saude_seguranca.html" class="btn btn-primary">Acessar Curso</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="imag/desenvolvimento-comunitrio.webp" class="card-img-top"
+                            alt="Curso Desenvolvimento Comunitário">
+                        <div class="card-body">
+                            <h5 class="card-title">Curso de Desenvolvimento Comunitário</h5>
+                            <p class="card-text">Capacitar os participantes com conhecimentos e ferramentas para planejar, implementar e avaliar ações que promovam o desenvolvimento sustentável nas comunidades.</p>
+                            <a href="desenvolvimento_comunitario.html" class="btn btn-primary">Acessar Curso</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="imag/projectos sociais.webp" class="card-img-top" alt="Curso Gestão de Projetos Sociais">
+                        <div class="card-body">
+                            <h5 class="card-title">Curso de Gestão de Projetos Sociais</h5>
+                            <p class="card-text">Planejamento e gestão de iniciativas para impacto social e comunitário.</p>
+                            <a href="gestao_projetos_sociais.html" class="btn btn-primary">Acessar Curso</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-primary text-white text-center py-3">
+        <p>© 2025 CIPROS - Todos os direitos reservados.</p>
+        <p>Email: ciprosonline@gmail.com | 850466228 | Localização: Sede sita na cidade de Chimoio, Província de Manica, Moçambique</p>
+        <div class="social-links">
+            <a href="https://web.facebook.com/cipros36/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://linkedin.com/in/cipros-online-9b868335b" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function mostrarMissaoVisao() {
+            const missaoVisaoValores = document.getElementById('missao-visao-valores');
+            missaoVisaoValores.style.display = 'block';
+        }
+
+        function mostrarCursos() {
+            const cursosSection = document.getElementById('cursos');
+            cursosSection.style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>

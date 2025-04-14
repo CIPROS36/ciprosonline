@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaliação Monitoria e Avaliação de Projetos</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 30px;
+        }
+
+        #avaliacao {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .questao {
+            margin-bottom: 25px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .questao p {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .resultado, #certificado, #linkCertificado {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .resultado {
+            background-color: #e6f7ff;
+            color: #007bff;
+        }
+
+        #certificado {
+            background-color: #d4edda;
+            color: #155724;
+            display: none;
+            white-space: pre-line;
+        }
+
+        #linkCertificado {
+            color: #007bff;
+            text-decoration: none;
+            display: none;
+        }
+
+        #linkCertificado:hover {
+            text-decoration: underline;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"], input[type="date"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <h1>Avaliação Monitoria e Avaliação de Projetos</h1>
+    <form id="avaliacao">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+
+        <label for="data">Data de Avaliação:</label>
+        <input type="date" id="data" name="data" required>
+
+        <div class="questao">
+            <p>1. Qual a principal função da Monitoria e Avaliação de Projetos (M&A)?</p>
+            <input type="radio" name="q1" value="a"> a) Gerenciar recursos financeiros<br>
+            <input type="radio" name="q1" value="b"> b) Medir o progresso e impacto de projetos<br>
+            <input type="radio" name="q1" value="c"> c) Criar relatórios de marketing<br>
+            <input type="radio" name="q1" value="d"> d) Desenvolver softwares<br>
+        </div>
+        <div class="questao">
+            <p>2. O que são indicadores de desempenho em M&A?</p>
+            <input type="radio" name="q2" value="a"> a) Ferramentas de design gráfico<br>
+            <input type="radio" name="q2" value="b"> b) Métricas para avaliar o sucesso do projeto<br>
+            <input type="radio" name="q2" value="c"> c) Softwares de edição de vídeo<br>
+            <input type="radio" name="q2" value="d"> d) Técnicas de programação<br>
+        </div>
+        <div class="questao">
+            <p>3. Qual tipo de avaliação foca no impacto de longo prazo do projeto?</p>
+            <input type="radio" name="q3" value="a"> a) Avaliação formativa<br>
+            <input type="radio" name="q3" value="b"> b) Avaliação somativa<br>
+            <input type="radio" name="q3" value="c"> c) Avaliação de impacto<br>
+            <input type="radio" name="q3" value="d"> d) Avaliação de processo<br>
+        </div>
+        <div class="questao">
+            <p>4. O que é um plano de M&A?</p>
+            <input type="radio" name="q4" value="a"> a) Um plano de marketing<br>
+            <input type="radio" name="q4" value="b"> b) Um documento que descreve como o projeto será monitorado e avaliado<br>
+            <input type="radio" name="q4" value="c"> c) Um plano de desenvolvimento de software<br>
+            <input type="radio" name="q4" value="d"> d) Um plano de edição de vídeo<br>
+        </div>
+        <div class="questao">
+            <p>5. Qual a importância do feedback dos stakeholders em M&A?</p>
+            <input type="radio" name="q5" value="a"> a) Não é importante<br>
+            <input type="radio" name="q5" value="b"> b) Ajuda a ajustar o projeto e garantir relevância<br>
+            <input type="radio" name="q5" value="c"> c) Apenas para fins de marketing<br>
+            <input type="radio" name="q5" value="d"> d) Apenas para fins financeiros<br>
+        </div>
+        <div class="questao">
+            <p>6. O que é uma linha de base em M&A?</p>
+            <input type="radio" name="q6" value="a"> a) Um tipo de gráfico<br>
+            <input type="radio" name="q6" value="b"> b) Um ponto de referência para medir o progresso<br>
+            <input type="radio" name="q6" value="c"> c) Uma ferramenta de design<br>
+            <input type="radio" name="q6" value="d"> d) Um tipo de software<br>
+        </div>
+        <div class="questao">
+            <p>7. O que é uma matriz de avaliação?</p>
+            <input type="radio" name="q7" value="a"> a) Um tipo de gráfico<br>
+            <input type="radio" name="q7" value="b"> b) Uma ferramenta para organizar e analisar dados de avaliação<br>
+            <input type="radio" name="q7" value="c"> c) Um tipo de software<br>
+            <input type="radio" name="q7" value="d"> d) Um tipo de vídeo<br>
+        </div>
+        <div class="questao">
+            <p>8. Qual a função do relatório de avaliação?</p>
+            <input type="radio" name="q8" value="a"> a) Gerenciar finanças<br>
+            <input type="radio" name="q8" value="b"> b) Comunicar os resultados da avaliação<br>
+            <input type="radio" name="q8" value="c"> c) Criar gráficos<br>
+            <input type="radio" name="q8" value="d"> d) Editar vídeos<br>
+        </div>
+        <div class="questao">
+            <p>9. O que é um indicador SMART?</p>
+            <input type="radio" name="q9" value="a"> a) Um tipo de gráfico<br>
+            <input type="radio" name="q9" value="b"> b) Um indicador específico, mensurável, atingível, relevante e temporal<br>
+            <input type="radio" name="q9" value="c"> c) Um tipo de software<br>
+            <input type="radio" name="q9" value="d"> d) Um tipo de vídeo<br>
+        </div>
+        <div class="questao">
+            <p>10. Qual a importância da sustentabilidade em M&A?</p>
+            <input type="radio" name="q10" value="a"> a) Não é importante<br>
+            <input type="radio" name="q10" value="b"> b) Garante que os benefícios do projeto continuem a longo prazo<br>
+            <input type="radio" name="q10" value="c"> c) Apenas para fins de marketing<br>
+            <input type="radio" name="q10" value="d"> d) Apenas para fins financeiros<br>
+        </div>
+        <button type="button" onclick="calcularResultado()">Enviar Respostas</button>
+    </form>
+    <div class="resultado" id="resultado"></div>
+    <div id="certificado"></div>
+    <a href="certificadom&a.html" id="linkCertificado">Baixar Certificado</a>
+
+    <script>
+        function calcularResultado() {
+            const respostasCorretas = { q1: 'b', q2: 'b', q3: 'c', q4: 'b', q5: 'b', q6: 'b', q7: 'b', q8: 'b', q9: 'b', q10: 'b' };
+            let pontuacao = 0;
+            for (let questao in respostasCorretas) {
+                if (document.querySelector(`input[name=${questao}]:checked`) && document.querySelector(`input[name=${questao}]:checked`).value === respostasCorretas[questao]) {
+                    pontuacao++;
+                }
+            }
+            const percentual = (pontuacao / 10) * 100;
+            document.getElementById('resultado').textContent = `Sua pontuação: ${pontuacao}/10 (${percentual}%)`;
+    
+            const nome = document.getElementById('nome').value;
+            const data = document.getElementById('data').value;
+    
+            if (percentual >= 80) {
+                localStorage.setItem('nomeAluno', nome);
+                localStorage.setItem('dataAvaliacao', data);
+                window.location.href = "certificadom&a.html"; // Alteração aqui
+            } else {
+                document.getElementById('certificado').textContent = "Infelizmente, você não alcançou a nota ideal. Tente novamente.";
+                document.getElementById('certificado').style.display = 'block';
+                document.getElementById('linkCertificado').style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
